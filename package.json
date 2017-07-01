@@ -8,7 +8,7 @@
     "coveralls": "cat coverage/lcov.info | coveralls"
   },
   "engines" : {
-    "node" : ">=8.0" 
+    "node" : ">=8.0"
   },
   "dependencies": {
     "babel-plugin-istanbul": "^4.1.4",
@@ -43,7 +43,7 @@
       "babel-register"
     ],
     "reporter": [
-      "lcov",
+      "lcovonly",
       "text"
     ],
     "sourceMap": false,
