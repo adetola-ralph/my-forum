@@ -4,9 +4,10 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "test": "NODE_ENV=test node_modules/.bin/_mocha --require babel-register"
+    "test": "NODE_ENV=test node_modules/.bin/nyc node_modules/.bin/_mocha --require babel-register"
   },
   "dependencies": {
+    "babel-plugin-istanbul": "^4.1.4",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.17.2",
     "dotenv": "^4.0.0",
@@ -32,5 +33,16 @@
     "mocha": "^3.4.2",
     "nyc": "^11.0.3",
     "supertest": "^3.0.0"
+  },
+  "nyc": {
+    "require": [
+      "babel-register"
+    ],
+    "reporter": [
+      "lcov",
+      "text"
+    ],
+    "sourceMap": false,
+    "instrument": false
   }
 }
