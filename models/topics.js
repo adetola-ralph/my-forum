@@ -22,6 +22,11 @@ module.exports = (sequelize, DataTypes) => {
         this.belongsTo(models.Users, {
           foreignKey: 'userId'
         });
+
+        // associations for posts
+        this.hasMany(models.Posts, {
+          foreignKey: 'topicId'
+        });
       }
     }
   });

@@ -17,7 +17,15 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     classMethods: {
       associate(models) {
-        // associations can be defined here
+        // associations for user
+        this.belongsTo(models.Users, {
+          foreignKey: 'userId'
+        });
+
+        // association for topic
+        this.belongsTo(models.Topics, {
+          foreignKey: 'topicId'
+        });
       }
     }
   });

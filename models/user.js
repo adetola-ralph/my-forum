@@ -33,6 +33,11 @@ module.exports = (sequelize, DataTypes) => {
         this.hasMany(models.Topics, {
           foreignKey: 'userId'
         });
+
+        // associations for posts
+        this.hasMany(models.Posts, {
+          foreignKey: 'userId'
+        });
       }
     }
   });
