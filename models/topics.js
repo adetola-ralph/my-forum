@@ -27,6 +27,12 @@ module.exports = (sequelize, DataTypes) => {
         this.hasMany(models.Posts, {
           foreignKey: 'topicId'
         });
+
+        // association for tag
+        this.belongsToMany(models.Tag, {
+          through: 'TopicTag',
+          foreignKey: 'topicId',
+        });
       }
     }
   });
