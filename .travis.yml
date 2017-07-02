@@ -4,3 +4,7 @@ script:
     - yarn test
 after_success:
   - yarn run coveralls
+before_install:
+    - yarn global add sequelize-cli
+services:
+    - postgresql
