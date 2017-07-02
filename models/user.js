@@ -1,6 +1,7 @@
 'use strict';
 
 const bcrypt = require('bcryptjs');
+
 const salt = bcrypt.genSaltSync(10);
 
 module.exports = (sequelize, DataTypes) => {
@@ -24,12 +25,14 @@ module.exports = (sequelize, DataTypes) => {
     },
     profilePicture: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
   }, {
     classMethods: {
       associate(models) {
-        // associations can be defined here
+        // associations for Topics
+        this.hasMany(models.Topics, {
+          foreignKey: 'userId'
+        });
       }
     }
   });
