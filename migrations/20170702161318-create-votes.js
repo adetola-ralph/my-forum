@@ -2,16 +2,20 @@
 'use strict';
 module.exports = {
   up: function(queryInterface, Sequelize) {
-    return queryInterface.createTable('Topics', {
+    return queryInterface.createTable('Votes', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      topicName: {
-        type: Sequelize.STRING,
+      postId: {
+        type: Sequelize.INTEGER,
         allowNull: false,
+        references: {
+          model: 'Posts',
+          key: 'id',
+        }
       },
       userId: {
         type: Sequelize.INTEGER,
@@ -19,12 +23,7 @@ module.exports = {
         references: {
           model: 'Users',
           key: 'id',
-        },
-      },
-      open: {
-        type: Sequelize.BOOLEAN,
-        allowNull: false,
-        defaultValue: true,
+        }
       },
       createdAt: {
         allowNull: false,
@@ -37,6 +36,6 @@ module.exports = {
     });
   },
   down: function(queryInterface, Sequelize) {
-    return queryInterface.dropTable('Topics');
+    return queryInterface.dropTable('Votes');
   }
 };
