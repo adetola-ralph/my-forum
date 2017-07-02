@@ -6,6 +6,7 @@ const bodyParser = require('koa-body');
 
 // eslint-disable-next-line no-unused-vars
 const dotenv = require('dotenv').config({ silent: true });
+const models = require('./models');
 
 const app = new koa();
 const router = koaRouter({
@@ -17,7 +18,8 @@ app.use(bodyParser());
 app.use(morgan('dev'));
 
 router.get('/', async (ctx) => {
-  ctx.body = 'Hello world';
+  const user = await models.Users.findAll();
+  ctx.body = user;
 });
 
 app.use(router.routes());
