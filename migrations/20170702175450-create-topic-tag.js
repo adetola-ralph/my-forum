@@ -20,7 +20,7 @@ module.exports = {
       tagId: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'Tag',
+          model: 'Tags',
           field: 'id',
         }
       },

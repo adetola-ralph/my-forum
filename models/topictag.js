@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
           foreignKey: 'topicId'
         });
 
-        this.belongsTo(models.Tag, {
+        this.belongsTo(models.Tags, {
           foreignKey: 'tagId'
         });
       }

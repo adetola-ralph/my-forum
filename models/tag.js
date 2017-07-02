@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = (sequelize, DataTypes) => {
-  const Tag = sequelize.define('Tag', {
+  const Tags = sequelize.define('Tags', {
     tagName: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -10,12 +10,12 @@ module.exports = (sequelize, DataTypes) => {
     classMethods: {
       associate(models) {
         // associations for topic
-        this.belongsToMany(models.Topic, {
+        this.belongsToMany(models.Topics, {
           through: 'TopicTag',
           foreignKey: 'tagId',
         });
       }
     }
   });
-  return Tag;
+  return Tags;
 };

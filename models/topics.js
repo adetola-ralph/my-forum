@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
         });
 
         // association for tag
-        this.belongsToMany(models.Tag, {
+        this.belongsToMany(models.Tags, {
           through: 'TopicTag',
           foreignKey: 'topicId',
         });
