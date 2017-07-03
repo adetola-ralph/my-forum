@@ -24,8 +24,8 @@ router.get('/', async (ctx) => {
 
 app.use(router.routes());
 
-app.listen(port);
-winston.info(`Server listening on ${port}`);
-const addition = () => 1 + 2;
+app.listen(port, () => {
+  winston.info(`Server listening on ${port}`);
+});
 
-module.exports = addition;
+module.exports = app;
