@@ -14,6 +14,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
+      set(val) {
+        this.setDataValue('email', val.toLowerCase());
+      },
     },
     password: {
       type: DataTypes.STRING,
