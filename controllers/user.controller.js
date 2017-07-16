@@ -20,10 +20,7 @@ class UserController {
 
   // leaving this unimplemented for the future
   // eslint-disable-next-line
-  async index() {
-    const user = this.userModel.findAll();
-    return JSON.strigify(user);
-  }
+  async index() {}
 
   /**
    * Get a user with the userid
@@ -43,8 +40,24 @@ class UserController {
     return user.dataValues;
   }
 
-  async update(userObject){
+  /**
+   * update user object
+   *
+   * @param {number} uid id for the user to be updated
+   * @param {object} userObject object to update the db with
+   * @returns {object} updatedUser updated user object
+   *
+   * @memberOf UserController
+   */
+  async update(uid, userObject) {
+    const user = await this.userModel.findOne({
+      where: {
+        id: uid,
+      }
+    });
 
+    const updatedUser = await user.update(userObject);
+    return updatedUser;
   }
 
   /**
