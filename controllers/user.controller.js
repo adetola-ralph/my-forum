@@ -66,6 +66,7 @@ class UserController {
     }
 
     const newUser = await this.userModel.create(user);
+    delete newUser.dataValues.password;
     return newUser;
   }
 
