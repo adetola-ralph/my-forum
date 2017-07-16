@@ -11,4 +11,15 @@ module.exports = (router) => {
       message: 'Signup successful',
     };
   });
+
+  router.post('/signin', async (ctx) => {
+    const token = await a.signIn(ctx.request.body);
+    ctx.body = {
+      data: {
+        token,
+      },
+      success: true,
+      message: 'Signin successful',
+    };
+  });
 };
