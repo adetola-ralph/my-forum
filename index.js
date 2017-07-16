@@ -31,11 +31,6 @@ app.use(async (ctx, next) => {
   }
 });
 
-router.get('/', async (ctx) => {
-  const user = await models.Users.findAll();
-  ctx.body = user;
-});
-
 routes(router);
 
 app.use(router.routes());
