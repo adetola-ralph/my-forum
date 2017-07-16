@@ -7,11 +7,7 @@ const bodyParser = require('koa-body');
 // eslint-disable-next-line no-unused-vars
 const dotenv = require('dotenv').config({ silent: true });
 const models = require('./models');
-const userController = require('./controllers/user.controller');
 const routes = require('./routes');
-
-
-const u = new userController();
 
 const app = new koa();
 const router = koaRouter({

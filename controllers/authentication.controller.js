@@ -1,5 +1,8 @@
+const jwt = require('jsonwebtoken');
 const models = require('./../models/');
 const userController = require('./user.controller');
+require('dotenv').config({ silent: true });
+
 
 /**
  * Controller to handle signin and signup
@@ -16,24 +19,25 @@ class AuthenticationController {
     this.models = models;
     this.userController = new userController();
     this.signUp = this.signUp.bind(this);
+    this.secret = process.env.SECRET;
   }
 
   /**
    * Method used to signup a user
    *
-   * @param {Object} ctx koa context object
-   * @return {null} nothing
+   * @param {Object} userObject user object to be created
+   * @return {Object} newUser user object created during signup
    * @memberOf AuthenticationController
    */
   async signUp(userObject) {
     const newUser = await this.userController.create(userObject, true);
-    return newUser;
-    // ctx.status = 200;
-    // ctx.body = {
-    //   data: newUser,
-    //   success: true,
-    //   message: 'Signup successful',
-    // };
+    const token = jwt.sign(newUser.dataValues, this.secret, {
+      expiresIn: '3d',
+      algorithm: 'HS512',
+    });
+
+    newUser.dataValues.token = token;
+    return newUser.dataValues;
   }
 }
 

@@ -43,6 +43,8 @@ describe('Authentication', () => {
       expect(res.body).to.haveOwnProperty('success');
       expect(res.body.success).to.be.a('boolean');
       expect(res.body.success).to.be.true;
+      expect(res.body).to.have.property('data');
+      expect(res.body.data).to.have.property('token');
     });
   });
 
