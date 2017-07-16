@@ -2,7 +2,7 @@ import supertest from 'supertest';
 import chai from 'chai';
 import app from './../index';
 
-// const expect = chai.expect;
+const expect = chai.expect;
 const api = supertest.agent(app.listen());
 let token;
 let response;
@@ -38,5 +38,27 @@ describe('User Controller', () => {
     await api.get('/api/v1/users/2')
     .set('Authorization', token)
     .expect(403);
+  });
+
+  it('should not allow authenticated users update other user\'s profile', async () => {
+    await api.put('/api/v1/users/2')
+    .send({
+      name: 'ragga muffin',
+    })
+    .set('Authorization', token)
+    .expect(403);
+  });
+
+  it('should allow authenticated users update other their profile', async () => {
+    const res = await api.put('/api/v1/users/1')
+    .send({
+      name: 'ragga muffin',
+      email: 'ragga-muffin@my-forum.me',
+    })
+    .set('Authorization', token)
+    .expect(200);
+
+    expect(res.body.data).to.have.property('name', 'ragga muffin');
+    expect(res.body.data).to.have.property('email', 'ragga-muffin@my-forum.me');
   });
 });
