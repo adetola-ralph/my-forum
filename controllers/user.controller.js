@@ -15,32 +15,40 @@ class UserController {
    */
   constructor() {
     this.userModel = models.Users;
+    this.get = this.get.bind(this);
   }
 
-  /**
-   * index class method
-   *
-   * Returns all the users in the database
-   *
-   * @memberOf UserController
-   * @param  {Object} ctx koa context object containing
-   * request and response objects
-   * @return {Array} return an array of users
-   */
-  async index(ctx) {
+  async index() {
     const user = this.userModel.findAll();
     return JSON.strigify(user);
   }
 
-  async get(ctx) {
-    return {};
+  /**
+   * Get a user with the userid
+   *
+   * @param {number} userId id for the user to retreive
+   * @returns {Object} user user object from db
+   *
+   * @memberOf UserController
+   */
+  async get(userId) {
+    const user = await this.userModel.findOne({
+      where: {
+        id: userId
+      }
+    });
+
+    return user.dataValues;
+  }
+
+  async update(userObject){
+
   }
 
   /**
    * Create a new user
    *
-   * @param {Object} ctx koa context object containing
-   * request and response objects
+   * @param {Object} userObject user object
    * @param {Boolean} auth specifies if the method is being called by signup or not
    * @return {null} doesn't return anything
    * @memberOf UserController
@@ -69,7 +77,6 @@ class UserController {
     delete newUser.dataValues.password;
     return newUser;
   }
-
 
   /**
    * check if the user object contains all fields
