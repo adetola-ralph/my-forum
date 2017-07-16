@@ -1,4 +1,3 @@
-// import models from './../models/';
 const models = require('./../models/');
 
 /**

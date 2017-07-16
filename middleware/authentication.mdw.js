@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 
 /**
  * Authentication middleware
- * 
+ *
  * @class AuthMiddleare
  */
 class AuthMiddleware {
@@ -21,7 +21,7 @@ class AuthMiddleware {
    *
    * @param {object} ctx koa context obect
    * @param {function} next async function to continue execution flow
-   *
+   * @return {null} null
    * @memberOf AuthMiddleware
    */
   async checkAuthentication(ctx, next) {

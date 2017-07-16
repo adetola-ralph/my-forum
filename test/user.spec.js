@@ -53,12 +53,12 @@ describe('User Controller', () => {
     const res = await api.put('/api/v1/users/1')
     .send({
       name: 'ragga muffin',
-      email: 'ragga-muffin@my-forum.me',
+      profilePicture: 'http://somelink.me/picture.jpg'
     })
     .set('Authorization', token)
     .expect(200);
 
     expect(res.body.data).to.have.property('name', 'ragga muffin');
-    expect(res.body.data).to.have.property('email', 'ragga-muffin@my-forum.me');
+    expect(res.body.data).to.have.property('profilePicture', 'http://somelink.me/picture.jpg');
   });
 });
