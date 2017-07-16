@@ -16,7 +16,7 @@ module.exports = (router) => {
     const token = await a.signIn(ctx.request.body);
     ctx.body = {
       data: {
-        token,
+        token: `Bearer ${token}`,
       },
       success: true,
       message: 'Signin successful',

@@ -40,7 +40,7 @@ class AuthenticationController {
       algorithm: 'HS512',
     });
 
-    newUser.dataValues.token = token;
+    newUser.dataValues.token = `Bearer ${token}`;
     return newUser.dataValues;
   }
 
