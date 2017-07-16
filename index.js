@@ -8,10 +8,10 @@ const bodyParser = require('koa-body');
 const dotenv = require('dotenv').config({ silent: true });
 const models = require('./models');
 const userController = require('./controllers/user.controller');
-const authController = require('./controllers/authentication.controller');
+const routes = require('./routes');
+
 
 const u = new userController();
-const a = new authController();
 
 const app = new koa();
 const router = koaRouter({
@@ -40,14 +40,7 @@ router.get('/', async (ctx) => {
   ctx.body = user;
 });
 
-router.post('/signup', async (ctx) => {
-  const newUser = await a.signUp(ctx.request.body);
-  ctx.body = {
-    data: newUser,
-    success: true,
-    message: 'Signup successful',
-  };
-});
+routes(router);
 
 app.use(router.routes());
 
