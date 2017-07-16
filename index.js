@@ -6,7 +6,6 @@ const bodyParser = require('koa-body');
 
 // eslint-disable-next-line no-unused-vars
 const dotenv = require('dotenv').config({ silent: true });
-const models = require('./models');
 const routes = require('./routes');
 
 const app = new koa();

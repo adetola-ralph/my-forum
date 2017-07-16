@@ -18,6 +18,8 @@ class UserController {
     this.get = this.get.bind(this);
   }
 
+  // leaving this unimplemented for the future
+  // eslint-disable-next-line
   async index() {
     const user = this.userModel.findAll();
     return JSON.strigify(user);
