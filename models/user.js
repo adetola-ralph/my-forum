@@ -29,20 +29,19 @@ module.exports = (sequelize, DataTypes) => {
     profilePicture: {
       type: DataTypes.STRING,
     },
-  }, {
-    classMethods: {
-      associate(models) {
-        // associations for Topics
-        this.hasMany(models.Topics, {
-          foreignKey: 'userId'
-        });
-
-        // associations for posts
-        this.hasMany(models.Posts, {
-          foreignKey: 'userId'
-        });
-      }
-    }
   });
+
+  Users.associate = function (models) {
+    // associations for Topics
+    this.hasMany(models.Topics, {
+      foreignKey: 'userId'
+    });
+
+    // associations for posts
+    this.hasMany(models.Posts, {
+      foreignKey: 'userId'
+    });
+  };
+
   return Users;
 };

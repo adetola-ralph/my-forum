@@ -10,20 +10,19 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-  }, {
-    classMethods: {
-      associate(models) {
-        // associations for users
-        this.belongsTo(models.Users, {
-          foreignKey: 'userId'
-        });
-
-        // associations for posts
-        this.belongsTo(models.Posts, {
-          foreignKey: 'postId'
-        });
-      }
-    }
   });
+
+  Votes.associate = function (models) {
+    // associations for users
+    this.belongsTo(models.Users, {
+      foreignKey: 'userId'
+    });
+
+    // associations for posts
+    this.belongsTo(models.Posts, {
+      foreignKey: 'postId'
+    });
+  };
+
   return Votes;
 };
