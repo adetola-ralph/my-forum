@@ -14,20 +14,19 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-  }, {
-    classMethods: {
-      associate(models) {
-        // associations for user
-        this.belongsTo(models.Users, {
-          foreignKey: 'userId'
-        });
-
-        // association for topic
-        this.belongsTo(models.Topics, {
-          foreignKey: 'topicId'
-        });
-      }
-    }
   });
+
+  Posts.associate = function (models) {
+    // associations for user
+    this.belongsTo(models.Users, {
+      foreignKey: 'userId'
+    });
+
+    // association for topic
+    this.belongsTo(models.Topics, {
+      foreignKey: 'topicId'
+    });
+  };
+
   return Posts;
 };

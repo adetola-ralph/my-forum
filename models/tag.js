@@ -6,16 +6,15 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-  }, {
-    classMethods: {
-      associate(models) {
-        // associations for topic
-        this.belongsToMany(models.Topics, {
-          through: 'TopicTag',
-          foreignKey: 'tagId',
-        });
-      }
-    }
   });
+
+  Tags.associate = function (models) {
+    // associations for topic
+    this.belongsToMany(models.Topics, {
+      through: 'TopicTag',
+      foreignKey: 'tagId',
+    });
+  };
+
   return Tags;
 };

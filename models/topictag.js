@@ -10,18 +10,17 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-  }, {
-    classMethods: {
-      associate(models) {
-        this.belongsTo(models.Topics, {
-          foreignKey: 'topicId'
-        });
-
-        this.belongsTo(models.Tags, {
-          foreignKey: 'tagId'
-        });
-      }
-    }
   });
+
+  TopicTag.associate = function (models) {
+    this.belongsTo(models.Topics, {
+      foreignKey: 'topicId'
+    });
+
+    this.belongsTo(models.Tags, {
+      foreignKey: 'tagId'
+    });
+  };
+
   return TopicTag;
 };
