@@ -37,20 +37,22 @@ describe('Topics', () => {
     });
 
     it('should allow authenticated users to create topic', async () => {
-      await api.post('/api/v1/topics')
+      const res = await api.post('/api/v1/topics')
       .set('authorization', token)
       .send({
         topicName: 'Another 10 weird Stuff',
         userId: 2,
       })
       .expect(200);
+
+      expect(res.body.data).to.have.property('id');
     });
 
     it('should allow throw error on incomplete details', async () => {
       await api.post('/api/v1/topics')
       .set('authorization', token)
       .send({
-        topicName: 'Another 10 weird Stuff',
+        topicName: 'Another 11 weird Stuff',
       })
       .expect(400);
     });

@@ -15,4 +15,14 @@ module.exports = (router) => {
       data: topics,
     };
   });
+
+  router.post('/topics', am.checkAuthentication, async (ctx) => {
+    const topic = ctx.request.body;
+    const createdTopic = await t.create(topic);
+    ctx.body = {
+      success: true,
+      message: 'Topic created',
+      data: createdTopic,
+    };
+  });
 };
