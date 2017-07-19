@@ -62,10 +62,10 @@ module.exports = (router) => {
 
   router.get('/topics/:tid/tags', async (ctx) => {
     const topicId = ctx.params.tid;
-    const topicTags = await t.getPosts(topicId);
+    const topicTags = await t.getTags(topicId);
     ctx.body = {
       success: true,
-      message: 'Topic posts retrieved',
+      message: 'Topic tags retrieved',
       data: topicTags,
     };
   });
