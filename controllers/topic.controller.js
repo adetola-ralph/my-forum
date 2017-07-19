@@ -14,6 +14,8 @@ class TopicController {
   constructor() {
     this.topicModel = models.Topics;
     this.get = this.get.bind(this);
+    this.index = this.index.bind(this);
+    this.update = this.update.bind(this);
   }
 
   /**
@@ -23,10 +25,24 @@ class TopicController {
    *
    * @memberOf TopicController
    */
-  async get() {
+  async index() {
     const topics = await this.topicModel.findAll();
 
     return topics;
+  }
+
+  /**
+   * get a specific topic
+   *
+   * @param {any} topicId id of the topic to be retreived
+   * @returns {Object} topic object from the db
+   *
+   * @memberOf TopicController
+   */
+  async get(topicId) {
+    const topic = await this.topicModel.findById(parseInt(topicId, 10));
+
+    return topic;
   }
 
   /**
@@ -50,6 +66,19 @@ class TopicController {
     });
 
     return newTopic;
+  }
+
+  async update(topicId, topicObject, userId) {
+    const topic = await this.get(topicId);
+    if (parseInt(userId, 10) !== parseInt(topic.userId, 10)) {
+      const err = new Error('You\'re not allowed to perform this action');
+      err.status = 403;
+      throw err;
+    }
+
+    topic.update(topicObject);
+
+    return topic;
   }
 }
 

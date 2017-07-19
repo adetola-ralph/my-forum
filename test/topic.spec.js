@@ -7,14 +7,25 @@ const api = supertest.agent(app.listen());
 let response, token;
 
 describe('Topics', () => {
-  it('all topics should be available to all users', async () => {
-    const res = await api.get('/api/v1/topics')
-                .expect(200);
+  describe('Topic Access', () => {
+    it('all topics should be available to all users', async () => {
+      const res = await api.get('/api/v1/topics')
+                  .expect(200);
 
-    expect(res.body.success).to.be.true;
-    expect(res.body.data).to.be.an('array');
-    expect(res.body.data).to.not.be.empty;
-    expect(res.body.data).to.have.lengthOf(5);
+      expect(res.body.success).to.be.true;
+      expect(res.body.data).to.be.an('array');
+      expect(res.body.data).to.not.be.empty;
+      expect(res.body.data).to.have.lengthOf(5);
+    });
+
+    it('all  users can access a topic', async () => {
+      const res = await api.get('/api/v1/topics/5')
+                  .expect(200);
+
+      expect(res.body.data).to.have.property('id', 5);
+    });
+
+    // TODO: 404 error if topic doesn't exist
   });
 
   describe('Topic creation', () => {
@@ -41,7 +52,7 @@ describe('Topics', () => {
       .set('authorization', token)
       .send({
         topicName: 'Another 10 weird Stuff',
-        userId: 2,
+        userId: 1,
       })
       .expect(200);
 
@@ -55,6 +66,30 @@ describe('Topics', () => {
         topicName: 'Another 11 weird Stuff',
       })
       .expect(400);
+    });
+
+    // TODO: user id on the topic should be same as the user sending the request
+  });
+
+  describe('Topic update', () => {
+    it('should throw error if non creator tries to update topic', async () => {
+      await api.put('/api/v1/topics/4')
+      .send({
+        open: true,
+      })
+      .set('Authorization', token)
+      .expect(403);
+    });
+
+    it('should allow creators to update their topic', async () => {
+      const res = await api.put('/api/v1/topics/6')
+      .send({
+        open: false,
+      })
+      .set('Authorization', token)
+      .expect(200);
+
+      expect(res.body.data.open).to.be.false;
     });
   });
 });
