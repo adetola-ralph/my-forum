@@ -49,6 +49,14 @@ describe('User Controller', () => {
     .expect(403);
   });
 
+  it('should not allow unauthenticated users update other user\'s profile', async () => {
+    await api.put('/api/v1/users/2')
+    .send({
+      name: 'ragga muffin',
+    })
+    .expect(401);
+  });
+
   it('should allow authenticated users update other their profile', async () => {
     const res = await api.put('/api/v1/users/1')
     .send({

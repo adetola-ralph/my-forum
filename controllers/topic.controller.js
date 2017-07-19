@@ -1,5 +1,5 @@
 const models = require('./../models/');
-const notFoundError = require('./../custom/not-found-error');
+// const notFoundError = require('./../custom/not-found-error');
 
 /**
  * TopicController class
@@ -42,6 +42,12 @@ class TopicController {
    */
   async get(topicId) {
     const topic = await this.topicModel.findById(parseInt(topicId, 10));
+
+    if (topic === null) {
+      const err = new Error('Topic doesn\'t exist');
+      err.status = 404;
+      throw err;
+    }
 
     return topic;
   }
@@ -108,7 +114,9 @@ class TopicController {
     });
 
     if (!topicWithPosts) {
-      throw new notFoundError('Topic doesn\'t exist');
+      const err = new Error('Topic doesn\'t exist');
+      err.status = 404;
+      throw err;
     }
 
     return topicWithPosts.dataValues.Posts;
@@ -130,10 +138,11 @@ class TopicController {
     });
 
     if (!topicWithTags) {
-      throw new notFoundError('Topic doesn\'t exist');
+      const err = new Error('Topic doesn\'t exist');
+      err.status = 404;
+      throw err;
     }
-    const tags = topicWithTags.dataValues.Tags;
-    return tags;
+    return topicWithTags.Tags;
   }
 }
 

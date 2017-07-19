@@ -25,8 +25,10 @@ describe('Topics', () => {
       expect(res.body.data).to.have.property('id', 5);
     });
 
-    // TODO: 404 error if topic doesn't exist
-    it('should throw error if topic doesn\'t exist');
+    it('should throw error if topic doesn\'t exist', async () => {
+      await api.get('/api/v1/topics/9')
+      .expect(404);
+    });
   });
 
   describe('Topic creation', () => {
@@ -107,5 +109,15 @@ describe('Topics', () => {
                   .expect(200);
 
     expect(res.body.data).to.be.an('array');
+  });
+
+  it('should throw error if topic doesn\'t exist, tags', async () => {
+    await api.get('/api/v1/topics/9/tags')
+    .expect(404);
+  });
+
+  it('should throw error if topic doesn\'t exist, posts', async () => {
+    await api.get('/api/v1/topics/9/posts')
+    .expect(404);
   });
 });

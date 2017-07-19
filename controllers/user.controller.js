@@ -15,6 +15,7 @@ class UserController {
   constructor() {
     this.userModel = models.Users;
     this.get = this.get.bind(this);
+    this.update = this.update.bind(this);
   }
 
   // leaving this unimplemented for the future
@@ -36,7 +37,7 @@ class UserController {
       }
     });
 
-    return user.dataValues;
+    return user;
   }
 
   /**
@@ -49,11 +50,7 @@ class UserController {
    * @memberOf UserController
    */
   async update(uid, userObject) {
-    const user = await this.userModel.findOne({
-      where: {
-        id: uid,
-      }
-    });
+    const user = await this.get(uid);
 
     const updatedUser = await user.update(userObject);
     return updatedUser;
