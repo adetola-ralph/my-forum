@@ -132,8 +132,8 @@ class TopicController {
     if (!topicWithTags) {
       throw new notFoundError('Topic doesn\'t exist');
     }
-
-    return topicWithTags.dataValues.Tags;
+    const tags = topicWithTags.dataValues.Tags;
+    return tags;
   }
 }
 

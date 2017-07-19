@@ -11,10 +11,10 @@ class NotFoundError extends Error {
    *
    * @memberOf NotFoundError
    */
-  constructor(errorMessage) {
+  constructor(errorMessage = 'Resource not found') {
     super(errorMessage);
     this.message = errorMessage;
-    this.status = 400;
+    this.status = 404;
   }
 }
 
