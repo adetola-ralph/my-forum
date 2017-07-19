@@ -49,4 +49,14 @@ module.exports = (router) => {
       data: updatedTopic,
     };
   });
+
+  router.get('/topics/:tid/posts', async (ctx) => {
+    const topicId = ctx.params.tid;
+    const topicPosts = await t.getPosts(topicId);
+    ctx.body = {
+      success: true,
+      message: 'Topic posts retrieved',
+      data: topicPosts,
+    };
+  });
 };

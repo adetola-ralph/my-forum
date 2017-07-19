@@ -26,6 +26,7 @@ describe('Topics', () => {
     });
 
     // TODO: 404 error if topic doesn't exist
+    it('should throw error if topic doesn\'t exist');
   });
 
   describe('Topic creation', () => {
@@ -81,6 +82,7 @@ describe('Topics', () => {
       .expect(403);
     });
 
+    // this also doubles as a close topic test
     it('should allow creators to update their topic', async () => {
       const res = await api.put('/api/v1/topics/6')
       .send({
@@ -91,5 +93,12 @@ describe('Topics', () => {
 
       expect(res.body.data.open).to.be.false;
     });
+  });
+
+  it('should be able to get posts under a topic', async () => {
+    const res = await api.get('/api/v1/topics/1/posts')
+                  .expect(200);
+
+    expect(res.body.data).to.be.an('array');
   });
 });

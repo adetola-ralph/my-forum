@@ -68,6 +68,16 @@ class TopicController {
     return newTopic;
   }
 
+  /**
+   * update topic attributes
+   *
+   * @param {any} topicId
+   * @param {any} topicObject
+   * @param {any} userId
+   * @returns {Object} topic
+   *
+   * @memberOf TopicController
+   */
   async update(topicId, topicObject, userId) {
     const topic = await this.get(topicId);
     if (parseInt(userId, 10) !== parseInt(topic.userId, 10)) {
@@ -79,6 +89,30 @@ class TopicController {
     topic.update(topicObject);
 
     return topic;
+  }
+
+  /**
+   * get posts associated to a topic
+   *
+   * @param {Number} topicId
+   * @returns {Array} Posts
+   *
+   * @memberOf TopicController
+   */
+  async getPosts(topicId) {
+    const topicWithPosts = await this.topicModel.findById(topicId, {
+      include: [{
+        model: models.Posts,
+      }],
+    });
+
+    if (!topicWithPosts) {
+      const err = new Error('Topic doesn\'t exist');
+      err.status = 404;
+      throw err;
+    }
+
+    return topicWithPosts.dataValues.Posts;
   }
 }
 
