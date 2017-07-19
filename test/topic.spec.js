@@ -101,4 +101,11 @@ describe('Topics', () => {
 
     expect(res.body.data).to.be.an('array');
   });
+
+  it('should be able to get tags under a topic', async () => {
+    const res = await api.get('/api/v1/topics/1/tags')
+                  .expect(200);
+
+    expect(res.body.data).to.be.an('array');
+  });
 });
