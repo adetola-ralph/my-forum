@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const models = require('./../models/');
 
 /**
  * Authentication middleware
@@ -42,6 +43,15 @@ class AuthMiddleware {
       });
     } catch (e) {
       const err = new Error('Invalid Token');
+      err.status = 401;
+      throw err;
+    }
+
+    const user = await models.Users.findById(decoded.id);
+
+    // should test this
+    if (!user) {
+      const err = new Error('Invalid User');
       err.status = 401;
       throw err;
     }
