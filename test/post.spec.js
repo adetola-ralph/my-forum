@@ -189,4 +189,36 @@ describe('Posts', () => {
       expect(res.body.data).to.have.property('content', 'you');
     });
   });
+
+  describe('delete', () => {
+    it('unauthenicated users can\'t delete posts', async () => {
+      await api.delete('/api/v1/posts/4')
+      .expect(401);
+    });
+
+    it('posts can only be deleted by creator', async () => {
+      const res = await api.delete('/api/v1/posts/4')
+      .set('authorization', token)
+      .expect(403);
+
+      expect(res.body.message).to.equal('You\'re not allowed to perform this action');
+    });
+
+
+    it('cannot delete a non existent post', async () => {
+      const res = await api.delete('/api/v1/posts/24')
+      .set('authorization', token)
+      .expect(404);
+
+      expect(res.body.message).to.equal('Post doesn\'t exist');
+    });
+
+    it('owner of the post can delete the post', async () => {
+      const res = await api.delete('/api/v1/posts/1')
+      .set('authorization', token)
+      .expect(200);
+
+      expect(res.body).to.have.property('message', 'Post has been deleted');
+    });
+  });
 });

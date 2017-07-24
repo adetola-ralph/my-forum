@@ -45,4 +45,15 @@ module.exports = (router) => {
       data: updatedPost,
     };
   });
+
+  router.delete('/posts/:pid', am.checkAuthentication, async (ctx) => {
+    const userId = ctx.request.decoded.id;
+    const postId = ctx.params.pid;
+
+    await p.delete(postId, userId);
+    ctx.body = {
+      success: true,
+      message: 'Post has been deleted',
+    };
+  });
 };

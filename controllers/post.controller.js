@@ -21,7 +21,7 @@ class PostController {
   /**
    * create new post
    *
-   * @param {Object} Post object { content = null, topicId = null, userId = null } 
+   * @param {Object} Post object { content = null, topicId = null, userId = null }
    * @return {null} null
    * @memberOf PostController
    */
@@ -83,6 +83,31 @@ class PostController {
     post.update(postObject);
 
     return post;
+  }
+
+  /**
+   * Delete a post
+   *
+   * @param {Object} postId post id
+   * @param {Object} userId post owner's id
+   * @return {null} null
+   * @memberOf PostController
+   */
+  async delete(postId, userId) {
+    const post = await this.postModel.findById(postId);
+    if (!post) {
+      const err = new Error('Post doesn\'t exist');
+      err.status = 404;
+      throw err;
+    }
+
+    if (parseInt(userId, 10) !== parseInt(post.userId, 10)) {
+      const err = new Error('You\'re not allowed to perform this action');
+      err.status = 403;
+      throw err;
+    }
+
+    await post.destroy();
   }
 }
 
