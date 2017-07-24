@@ -121,4 +121,72 @@ describe('Posts', () => {
       expect(res.body.data).to.have.property('id');
     });
   });
+
+  describe('update', () => {
+    it('unauthenicated users can\'t edit posts', async () => {
+      await api.put('/api/v1/posts/4')
+      .send({
+        content: 'This is a content under the Vinland Map Topic',
+      })
+      .expect(401);
+    });
+
+    it('cannot update post userId', async () => {
+      const res = await api.put('/api/v1/posts/4')
+      .send({
+        content: 'you',
+        userId: 2,
+      })
+      .set('authorization', token)
+      .expect(400);
+
+      expect(res.body.message).to.equal('You can\'t update the post user, topic or id');
+    });
+
+    it('cannot update post topicId', async () => {
+      const res = await api.put('/api/v1/posts/4')
+      .send({
+        content: 'you',
+        topicId: 2,
+      })
+      .set('authorization', token)
+      .expect(400);
+
+      expect(res.body.message).to.equal('You can\'t update the post user, topic or id');
+    });
+
+    it('posts can only be updated by creator', async () => {
+      const res = await api.put('/api/v1/posts/4')
+      .send({
+        content: 'you',
+      })
+      .set('authorization', token)
+      .expect(403);
+
+      expect(res.body.message).to.equal('You\'re not allowed to perform this action');
+    });
+
+
+    it('cannot update a non existent post', async () => {
+      const res = await api.put('/api/v1/posts/24')
+      .send({
+        content: 'you',
+      })
+      .set('authorization', token)
+      .expect(404);
+
+      expect(res.body.message).to.equal('Post doesn\'t exist');
+    });
+
+    it('owner of the post can update the post', async () => {
+      const res = await api.put('/api/v1/posts/1')
+      .send({
+        content: 'you',
+      })
+      .set('authorization', token)
+      .expect(200);
+
+      expect(res.body.data).to.have.property('content', 'you');
+    });
+  });
 });

@@ -32,4 +32,17 @@ module.exports = (router) => {
       data: createdPost,
     };
   });
+
+  router.put('/posts/:pid', am.checkAuthentication, async (ctx) => {
+    const userId = ctx.request.decoded.id;
+    const postObject = ctx.request.body;
+    const postId = ctx.params.pid;
+
+    const updatedPost = await p.update(postId, postObject, userId);
+    ctx.body = {
+      success: true,
+      message: 'Post updated',
+      data: updatedPost,
+    };
+  });
 };
