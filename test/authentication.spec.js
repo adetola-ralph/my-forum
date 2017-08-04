@@ -1,9 +1,15 @@
 import supertest from 'supertest';
 import chai from 'chai';
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
 import app from './../index';
+
+dotenv.config({ silent: true });
 
 const expect = chai.expect;
 const api = supertest.agent(app.listen());
+
+let token;
 
 describe('Authentication', () => {
   describe('User signup', () => {
@@ -97,5 +103,25 @@ describe('Authentication', () => {
       expect(res.body).to.have.property('data');
       expect(res.body.data).to.have.property('token');
     });
+  });
+
+  before(async () => {
+    token = await jwt.sign({ id: 23 }, process.env.SECRET, {
+      expiresIn: '3d',
+      algorithm: 'HS512',
+    });
+    token = `Bearer ${token}`;
+  });
+
+  it('should return 401 for invalid users', async () => {
+    const res = await api.post('/api/v1/topics')
+    .set('authorization', token)
+    .send({
+      topicName: 'Another 10 weird Stuff',
+      userId: 1,
+    })
+    .expect(401);
+
+    expect(res.body).to.have.property('message', 'Invalid User');
   });
 });

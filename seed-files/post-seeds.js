@@ -1,0 +1,65 @@
+module.exports = [
+  {
+    content: 'This is a content under the Why do horses sleep standing Topic',
+    topicId: 1,
+    userId: 1,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    content: 'This is a content under the Vinland Map Topic',
+    topicId: 4,
+    userId: 1,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    content: 'This is a content under the Vinland Map Topic',
+    topicId: 4,
+    userId: 3,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    content: 'This is a content under the Why do horses sleep standing Topic',
+    topicId: 1,
+    userId: 2,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    content: 'This is a content under the Apollo 11 Missing Tapes TOpic',
+    topicId: 2,
+    userId: 5,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    content: 'This is a content under the Apollo 11 Missing Tapes TOpic',
+    topicId: 2,
+    userId: 3,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    content: 'This is a content under the Vitrified Forts Topic',
+    topicId: 5,
+    userId: 1,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    content: 'This is a content under the Vitrified Forts Topic',
+    topicId: 5,
+    userId: 4,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    content: 'This is a content under the Supernova Remnant G1.9+0.3 TOpic',
+    topicId: 3,
+    userId: 4,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  }
+];
