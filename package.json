@@ -9,11 +9,12 @@
     "test": "NODE_ENV=test node_modules/.bin/nyc node_modules/.bin/_mocha --require babel-register",
     "coveralls": "cat coverage/lcov.info | coveralls",
     "dev": "nodemon index.js",
+    "start": "node index.js",
     "migration": "node_modules/.bin/sequelize db:migrate",
     "seed": "node_modules/.bin/sequelize db:seed:all"
   },
   "engines": {
-    "node": ">=8.0"
+    "node": "8"
   },
   "dependencies": {
     "babel-plugin-istanbul": "^4.1.4",
