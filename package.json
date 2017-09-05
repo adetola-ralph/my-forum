@@ -12,7 +12,7 @@
     "start": "node index.js",
     "migration": "node_modules/.bin/sequelize db:migrate",
     "seed": "node_modules/.bin/sequelize db:seed:all",
-    "heroku-postbuild": "yarn run migration"
+    "heroku-postbuild": "NODE_ENV=development yarn run migration"
   },
   "engines": {
     "node": "8"
