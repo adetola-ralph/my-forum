@@ -4,8 +4,16 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "pretest": "NODE_ENV=test dropdb --if-exists forum_test && createdb forum_test && NODE_ENV=test yarn run migration && NODE_ENV=test yarn run seed",
+    "posttest": "dropdb forum_test",
     "test": "NODE_ENV=test node_modules/.bin/nyc node_modules/.bin/_mocha --require babel-register",
-    "coveralls": "cat coverage/lcov.info | coveralls"
+    "coveralls": "cat coverage/lcov.info | coveralls",
+    "dev": "nodemon index.js",
+    "migration": "node_modules/.bin/sequelize db:migrate",
+    "seed": "node_modules/.bin/sequelize db:seed:all"
+  },
+  "engines": {
+    "node": ">=8.0"
   },
   "dependencies": {
     "babel-plugin-istanbul": "^4.1.4",
@@ -14,6 +22,8 @@
     "dotenv": "^4.0.0",
     "jsonwebtoken": "^7.4.1",
     "koa": "^2.3.0",
+    "koa-body": "^2.3.0",
+    "koa-morgan": "^1.0.1",
     "koa-router": "^7.2.1",
     "morgan": "^1.8.2",
     "pg": "^6.4.0",
@@ -40,7 +50,7 @@
       "babel-register"
     ],
     "reporter": [
-      "lcov",
+      "lcovonly",
       "text"
     ],
     "sourceMap": false,
