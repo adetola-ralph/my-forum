@@ -15,7 +15,7 @@
     "heroku-postbuild": "yarn run migration"
   },
   "engines": {
-    "node": ">=8.0"
+    "node": "8"
   },
   "dependencies": {
     "babel-plugin-istanbul": "^4.1.4",
