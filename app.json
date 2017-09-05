@@ -20,7 +20,8 @@
       "required": true
     },
     "NODE_ENV": {
-      "required": true
+      "required": true,
+      "value": "production"
     },
     "SECRET": {
       "generator": "secret"

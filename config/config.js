@@ -18,10 +18,6 @@ module.exports = {
     logging: false,
   },
   production: {
-    username: process.env.PROD_DB_USER,
-    password: process.env.PROD_DB_PASSWORD || null,
-    database: process.env.PROD_DB_NAME,
-    host: process.env.PROD_DB_HOST,
-    dialect: 'postgres',
+    use_env_variable: 'DATABASE_URL'
   },
 };
