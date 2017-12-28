@@ -3,6 +3,7 @@ const koa = require('koa');
 const morgan = require('koa-morgan');
 const koaRouter = require('koa-router');
 const bodyParser = require('koa-body');
+const cors = require('koa-cors');
 
 // eslint-disable-next-line no-unused-vars
 const dotenv = require('dotenv').config({ silent: true });
@@ -14,6 +15,7 @@ const router = koaRouter({
 });
 const port = process.env.PORT;
 
+app.use(cors());
 app.use(bodyParser());
 app.use(morgan('dev'));
 
