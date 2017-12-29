@@ -56,7 +56,9 @@ module.exports = (router) => {
 
   router.get('/topics/:tid/posts', async (ctx) => {
     const topicId = ctx.params.tid;
-    const topicPosts = await t.getPosts(topicId);
+    const query = ctx.query;
+    const queryObject = ProcessQuery.processQuery(query);
+    const topicPosts = await t.getPosts(topicId, queryObject);
     ctx.body = {
       success: true,
       message: 'Topic posts retrieved',

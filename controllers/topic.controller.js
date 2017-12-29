@@ -104,15 +104,16 @@ class TopicController {
    * get posts associated to a topic
    *
    * @param {Number} topicId
+   * @param {any} queryObject
    * @returns {Array} Posts
    *
    * @memberOf TopicController
    */
-  async getPosts(topicId) {
+  async getPosts(topicId, queryObject = {}) {
     const topicWithPosts = await this.topicModel.findById(topicId, {
-      include: [{
+      include: [Object.assign({
         model: models.Posts,
-      }],
+      }, queryObject)],
     });
 
     if (!topicWithPosts) {
