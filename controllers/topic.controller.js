@@ -22,12 +22,14 @@ class TopicController {
   /**
    * get all topics
    *
+   * @param {Object} queryObject object containing
+   * query objects based on user requests
    * @returns {Array} topics array of topics
    *
    * @memberOf TopicController
    */
-  async index() {
-    const topics = await this.topicModel.findAll();
+  async index(queryObject = {}) {
+    const topics = await this.topicModel.findAll(queryObject);
 
     return topics;
   }
