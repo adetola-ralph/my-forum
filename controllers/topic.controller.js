@@ -22,12 +22,14 @@ class TopicController {
   /**
    * get all topics
    *
+   * @param {Object} queryObject object containing
+   * query objects based on user requests
    * @returns {Array} topics array of topics
    *
    * @memberOf TopicController
    */
-  async index() {
-    const topics = await this.topicModel.findAll();
+  async index(queryObject = {}) {
+    const topics = await this.topicModel.findAll(queryObject);
 
     return topics;
   }
@@ -102,15 +104,16 @@ class TopicController {
    * get posts associated to a topic
    *
    * @param {Number} topicId
+   * @param {any} queryObject
    * @returns {Array} Posts
    *
    * @memberOf TopicController
    */
-  async getPosts(topicId) {
+  async getPosts(topicId, queryObject = {}) {
     const topicWithPosts = await this.topicModel.findById(topicId, {
-      include: [{
+      include: [Object.assign({
         model: models.Posts,
-      }],
+      }, queryObject)],
     });
 
     if (!topicWithPosts) {

@@ -28,6 +28,20 @@ module.exports = [
     updatedAt: new Date(),
   },
   {
+    content: 'This is a content under the Why do horses sleep standing Topic 2',
+    topicId: 1,
+    userId: 2,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    content: 'This is a content under the Why do horses sleep standing Topic 3',
+    topicId: 1,
+    userId: 2,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
     content: 'This is a content under the Apollo 11 Missing Tapes TOpic',
     topicId: 2,
     userId: 5,
