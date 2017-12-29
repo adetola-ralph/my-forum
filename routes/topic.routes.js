@@ -21,7 +21,6 @@ module.exports = (router) => {
 
       if (e.name === 'SequelizeEagerLoadingError') {
         ctx.throw(400, `Non associated model requested; ${e.message}`);
-        return;
       }
     }
 
