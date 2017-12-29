@@ -113,6 +113,15 @@ describe('Topics', () => {
                   .expect(200);
 
     expect(res.body.data).to.be.an('array');
+    expect(res.body.data).to.have.lengthOf(3);
+  });
+
+  it('should be able to get posts under a topic with queries', async () => {
+    const res = await api.get('/api/v1/topics/1/posts?page=1&limit=2')
+                  .expect(200);
+
+    expect(res.body.data).to.be.an('array');
+    expect(res.body.data).to.have.lengthOf.at.most(2);
   });
 
   it('should be able to get tags under a topic', async () => {
