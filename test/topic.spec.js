@@ -29,6 +29,17 @@ describe('Topics', () => {
       await api.get('/api/v1/topics/9')
       .expect(404);
     });
+
+    describe('pagination', () => {
+      it('should return paginated results', async () => {
+        const res = await api.get('/api/v1/topics/?page=1&limit=2').expect(200);
+
+        expect(res.body.success).to.be.true;
+        expect(res.body.data).to.be.an('array');
+        expect(res.body.data).to.not.be.empty;
+        expect(res.body.data).to.have.lengthOf(2);
+      });
+    });
   });
 
   describe('Topic creation', () => {
