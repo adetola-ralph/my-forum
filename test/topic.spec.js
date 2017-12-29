@@ -40,6 +40,25 @@ describe('Topics', () => {
         expect(res.body.data).to.have.lengthOf(2);
       });
     });
+
+    describe('related model inclusion', () => {
+      it('should return paginated results', async () => {
+        const res = await api.get('/api/v1/topics/?page=1&limit=2&include=users,posts').expect(200);
+
+        expect(res.body.success).to.be.true;
+        expect(res.body.data).to.be.an('array');
+        expect(res.body.data).to.not.be.empty;
+        expect(res.body.data[0]).to.have.property('User');
+      });
+
+      it('should return error for non associated models', async () => {
+        const res = await api.get('/api/v1/topics/?page=1&limit=2&include=topicTags').expect(400);
+
+        expect(res.body.success).to.be.false;
+        expect(res.body.message).to
+          .equal('Non associated model requested; TopicTag is not associated to Topics!');
+      });
+    });
   });
 
   describe('Topic creation', () => {
