@@ -12,7 +12,19 @@ module.exports = (router) => {
   router.get('/topics', async (ctx) => {
     const query = ctx.query;
     const queryObject = ProcessQuery.processQuery(query);
-    const topics = await t.index(queryObject);
+    let topics;
+
+    try {
+      topics = await t.index(queryObject);
+    } catch (e) {
+      Error.captureStackTrace(e);
+
+      if (e.name === 'SequelizeEagerLoadingError') {
+        ctx.throw(400, `Non associated model requested; ${e.message}`);
+        return;
+      }
+    }
+
     ctx.body = {
       success: true,
       message: 'Topics retrieved',
