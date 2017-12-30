@@ -38,12 +38,19 @@ class TopicController {
    * get a specific topic
    *
    * @param {any} topicId id of the topic to be retreived
+   * @param {any} queryObject object containing
+   * query objects based on user requests
    * @returns {Object} topic object from the db
    *
    * @memberOf TopicController
    */
-  async get(topicId) {
-    const topic = await this.topicModel.findById(parseInt(topicId, 10));
+  async get(topicId, queryObject = {}) {
+    const topic = await this.topicModel.findOne(
+      Object.assign({
+        where: {
+          id: parseInt(topicId, 10)
+        },
+      }, queryObject));
 
     if (topic === null) {
       const err = new Error('Topic doesn\'t exist');
